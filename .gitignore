@@ -55,3 +55,6 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+.agents/skills/video_to_gif/scripts/.vs/VideoToGifSkill/v17/.suo
+.agents/skills/video_to_gif/scripts/.vs/VideoToGifSkill/DesignTimeBuild/.dtbcache.v2
+.agents/skills/video_to_gif/scripts/.vs/VideoToGifSkill/FileContentIndex/6ac87340-8051-4479-9e68-1b52d52ee485.vsidx
