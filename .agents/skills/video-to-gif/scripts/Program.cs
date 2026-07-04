@@ -34,7 +34,7 @@ public class Program
 }
 
 
-public static void Main(string[] args)
+public static async Task Main(string[] args)
     {
 
         // Print ASCII art header
@@ -61,7 +61,7 @@ public static void Main(string[] args)
         
         if (isFile)
         {
-            result = mp4Convertor?.Convert(input)?.Result ?? false;
+            result = await (mp4Convertor?.Convert(input) ?? Task.FromResult(false));
             if (result)
             {
                 string outDir = OutputDirectoryHelper.CheckOrCreateDirectory(input);
@@ -90,7 +90,7 @@ public static void Main(string[] args)
 
             foreach (var mp4File in orderedFiles)
                 {
-                    result = mp4Convertor?.Convert(mp4File)?.Result ?? false;
+                    result = await (mp4Convertor?.Convert(mp4File) ?? Task.FromResult(false));
                 if (result)
                 {
                     string outDir = OutputDirectoryHelper.CheckOrCreateDirectory(mp4File);

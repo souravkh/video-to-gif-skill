@@ -1,6 +1,5 @@
 namespace VideoToGifSkill;
 
-//using FFMpegCore;
 using MediaToolkit.Model;
 using MediaToolkit;
 
@@ -30,12 +29,6 @@ public class Mp4Convertor
             engine.Convert(inputFile, outputFile);
         }
         return true;
-
-        //return await FFMpegArguments
-        //        .FromFileInput(input)
-        //        .OutputToFile(fileName, true,
-        //        options => options.ForceFormat("gif"))
-        //        .ProcessAsynchronously();
         
     }
 }
