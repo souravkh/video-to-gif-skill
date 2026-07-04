@@ -5,7 +5,7 @@ An agent skill that converts video files (MP4) into animated GIFs. It's a small 
 ## Get started
 
 - **[WHERE-TO-INSTALL.md](./WHERE-TO-INSTALL.md)** — copy `video-to-gif/` into the right folder for your agent (workspace or global).
-- **[video-to-gif/SKILL.md](./agents/skills/video-to-gif/SKILL.md)** — what the skill does, how the agent should behave, and how to build/run it manually.
+- **[video-to-gif/SKILL.md](./.agents/skills/video-to-gif/SKILL.md)** — what the skill does, how the agent should behave, and how to build/run it manually.
 
 ## What it does
 
