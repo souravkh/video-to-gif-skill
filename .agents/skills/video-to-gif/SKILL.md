@@ -7,7 +7,7 @@ description: Convert a video file to an animated GIF using MediaToolkit (FFmpeg 
 
 use video-to-gif skills to respond to user enter "video to gif" or "video2gif" or "v2gif" in chat
 
-print  "video-2-gif" in ascii art. (agent needs to it)
+print  "video-2-gif" in ascii art.
 
 Then get user folder location and list all video files in that folder in desc order by file size.
 
@@ -17,7 +17,7 @@ The output folder will be {inputlocation}/Output/{videoname}.gif
 
 After completion show gif names with location
 
-then print "END!"  ascii art  in chat. (agents needs to it)
+then print "END!"  ascii art  in chat.
 
 
 ## Overview
