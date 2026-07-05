@@ -82,25 +82,27 @@ public class Program
         if (!isFile && !isDirectory)
             throw new Exception("The input argument is not valid!");
 
-        Mp4Convertor mp4Convertor = new Mp4Convertor();
-        var outputPaths = new List<string>();
+        IOutputDirectoryHelper dirHelper = new OutputDirectoryHelper();
+        IOutputFileHelper fileHelper = new OutputFileHelper();
+        IVideoConverter mp4Converter = new Mp4VideoConverter(dirHelper, fileHelper);
+        ConverterFactory factory = new ConverterFactory(new IVideoConverter[] { mp4Converter });
+        IList<string> outputPaths = new List<string>();
         bool result = false;
 
         if (isFile)
         {
-            result = await (mp4Convertor?.Convert(input) ?? Task.FromResult(false));
-
+            IVideoConverter converter = factory.GetConverter(input);
+            result = await converter.Convert(input);
             if (result)
             {
-                string outDir = OutputDirectoryHelper.CheckOrCreateDirectory(input);
-                string gifPath = Path.Combine(outDir, Path.GetFileNameWithoutExtension(input) + ".gif");
+                string outDir = dirHelper.CheckOrCreateDirectory(input);
+                string gifPath = fileHelper.GetGifName(outDir, input);
                 outputPaths.Add(gifPath);
             }
         }
         else
         {
             IEnumerable<string> mp4Files = Enumerable.Empty<string>();
-
             try
             {
                 mp4Files = Directory.EnumerateFiles(input, "*.mp4", SearchOption.AllDirectories);
@@ -111,37 +113,35 @@ public class Program
                 mp4Files = Enumerable.Empty<string>();
             }
 
-            var orderedFiles = mp4Files
+            IEnumerable<string> orderedFiles = mp4Files
                 .Select(f => new FileInfo(f))
                 .OrderByDescending(fi => fi.Length)
                 .Select(fi => fi.FullName);
 
             foreach (var mp4File in orderedFiles)
             {
-                result = await (mp4Convertor?.Convert(mp4File) ?? Task.FromResult(false));
-
+                IVideoConverter converter = factory.GetConverter(mp4File);
+                result = await converter.Convert(mp4File);
                 if (result)
                 {
-                    string outDir = OutputDirectoryHelper.CheckOrCreateDirectory(mp4File);
-                    string gifPath = Path.Combine(outDir, Path.GetFileNameWithoutExtension(mp4File) + ".gif");
+                    string outDir = dirHelper.CheckOrCreateDirectory(mp4File);
+                    string gifPath = fileHelper.GetGifName(outDir, mp4File);
                     outputPaths.Add(gifPath);
                 }
             }
         }
 
         Console.WriteLine("\nGenerated GIFs:");
-
-        foreach (var path in outputPaths)
+        foreach (string path in outputPaths)
         {
             Console.WriteLine(path);
         }
 
         Console.WriteLine(@"\n  _____ _   _ _____ 
- | ____| \ | |_   _|
- |  _| |  \| | | |  
- | |___| |\\  | | |  
- |_____|_| \_| |_|  
-");
+  | ____| \\ | |_   _|
+  |  _| |  \\| | | |  
+  | |___| |\\\\  | | |  
+  |_____|_| \\_| |_|  ");
     }
 
     #endregion

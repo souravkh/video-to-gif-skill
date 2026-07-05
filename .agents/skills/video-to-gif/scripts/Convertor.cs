@@ -1,56 +1,42 @@
-namespace VideoToGifSkill;
-
 using MediaToolkit;
 using MediaToolkit.Model;
+using System.IO;
+using System.Threading.Tasks;
 
-/// <summary>
-/// Provides functionality to convert MP4 video files into GIF images.
-/// </summary>
-public class Mp4Convertor
+namespace VideoToGifSkill
 {
-    #region Public Methods
-
-    /// <summary>
-    /// Converts the specified MP4 video into a GIF.
-    /// The GIF is created inside the Output directory located next to the input file.
-    /// </summary>
-    /// <param name="input">
-    /// Full path of the input MP4 file.
-    /// </param>
-    /// <returns>
-    /// <c>true</c> if the conversion succeeds; otherwise, <c>false</c>.
-    /// </returns>
-    public async Task<bool> Convert(string input)
+    public class Mp4VideoConverter : IVideoConverter
     {
-        string outputDir = OutputDirectoryHelper.CheckOrCreateDirectory(input);
+        private readonly IOutputDirectoryHelper _dirHelper;
+        private readonly IOutputFileHelper _fileHelper;
 
-        if (string.IsNullOrEmpty(outputDir))
-            return false;
-
-        string fileName = OutputFileHelper.GetGIFName(outputDir, input);
-
-        if (File.Exists(fileName))
-            File.Delete(fileName);
-
-        MediaFile inputFile = new MediaFile
+        public Mp4VideoConverter(IOutputDirectoryHelper dirHelper, IOutputFileHelper fileHelper)
         {
-            Filename = input
-        };
-
-        MediaFile outputFile = new MediaFile
-        {
-            Filename = fileName
-        };
-
-        using (Engine engine = new Engine())
-        {
-            engine.GetMetadata(inputFile);
-            engine.Convert(inputFile, outputFile);
+            _dirHelper = dirHelper;
+            _fileHelper = fileHelper;
         }
 
-        await Task.CompletedTask;
-        return true;
-    }
+        public string SupportedExtension => ".mp4";
 
-    #endregion
+        public async Task<bool> Convert(string input)
+        {
+            var outputDir = _dirHelper.CheckOrCreateDirectory(input);
+            if (string.IsNullOrEmpty(outputDir))
+                return false;
+
+            var gifPath = _fileHelper.GetGifName(outputDir, input);
+            if (File.Exists(gifPath))
+                File.Delete(gifPath);
+
+            var inputFile = new MediaFile { Filename = input };
+            var outputFile = new MediaFile { Filename = gifPath };
+
+            using var engine = new Engine();
+            engine.GetMetadata(inputFile);
+            engine.Convert(inputFile, outputFile);
+
+            await Task.CompletedTask;
+            return true;
+        }
+    }
 }

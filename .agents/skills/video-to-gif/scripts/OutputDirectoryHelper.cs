@@ -4,7 +4,7 @@ namespace VideoToGifSkill;
 /// Provides helper methods for creating and retrieving the output directory
 /// used to store generated GIF files.
 /// </summary>
-public static class OutputDirectoryHelper
+public class OutputDirectoryHelper : IOutputDirectoryHelper
 {
     #region Constants
 
@@ -28,7 +28,7 @@ public static class OutputDirectoryHelper
     /// The full path to the output directory, or <see cref="string.Empty"/>
     /// if the input path is invalid.
     /// </returns>
-    public static string CheckOrCreateDirectory(string input)
+    public string CheckOrCreateDirectory(string input)
     {
         if (string.IsNullOrWhiteSpace(input))
             return string.Empty;

@@ -3,7 +3,7 @@ namespace VideoToGifSkill;
 /// <summary>
 /// Provides helper methods for generating output file names for converted GIFs.
 /// </summary>
-public static class OutputFileHelper
+public class OutputFileHelper : IOutputFileHelper
 {
     #region Constants
 
@@ -28,7 +28,7 @@ public static class OutputFileHelper
     /// <returns>
     /// The full path of the generated GIF file.
     /// </returns>
-    public static string GetGIFName(string outputDir, string inputFileName)
+    public string GetGifName(string outputDir, string inputFileName)
     {
         string fileName = Path.GetFileNameWithoutExtension(inputFileName);
         return Path.Combine(outputDir, fileName + GIF_EXTENSION);
