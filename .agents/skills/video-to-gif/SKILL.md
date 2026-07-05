@@ -1,4 +1,4 @@
-﻿---
+---
 name: video-to-gif
 description: Convert a video file (or a folder of videos) to an animated GIF using MediaToolkit (an FFmpeg wrapper). Trigger this skill when the user says "video to gif", "video2gif", or "v2gif" in chat.
 ---
@@ -51,6 +51,8 @@ video-to-gif/
     ├── VideoToGifSkill.csproj
     ├── Program.cs             # entry point — checks ffmpeg, dispatches file/directory mode
     ├── Convertor.cs           # Mp4Convertor.Convert() — runs the actual conversion via MediaToolkit.Engine
+    ├── ConverterFactory.cs   # factory for selecting appropriate converter
+    ├── IVideoConverter.cs     # interface for video converters
     ├── OutputDirectoryHelper.cs   # creates/returns the Output/ subdirectory
     └── OutputFileHelper.cs        # builds the output .gif filename
 ```
