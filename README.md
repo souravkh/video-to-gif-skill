@@ -21,14 +21,18 @@ An agent skill that converts video files (MP4) into animated GIFs. It's a small 
 video-to-gif-skill/
 ├── README.md              # you are here
 ├── WHERE-TO-INSTALL.md     # placement table for each agent (workspace + global paths)
-└── video-to-gif/           # the self-contained skill — copy this whole folder
-    ├── SKILL.md
-    └── scripts/
-        ├── VideoToGifSkill.csproj
-        ├── Program.cs
-        ├── Convertor.cs
-        ├── OutputDirectoryHelper.cs
-        └── OutputFileHelper.cs
+└── .agents/
+    └── skills/
+        └── video-to-gif/
+            ├── SKILL.md
+            └── scripts/
+                ├── VideoToGifSkill.csproj
+                ├── Program.cs
+                ├── Convertor.cs
+                ├── ConverterFactory.cs
+                ├── IVideoConverter.cs
+                ├── OutputDirectoryHelper.cs
+                └── OutputFileHelper.cs
 ```
 
 ## Prerequisites
