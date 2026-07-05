@@ -2,8 +2,6 @@
 
 An agent skill that converts video files (MP4) into animated GIFs. It's a small .NET 8 console tool wrapping **MediaToolkit** (an FFmpeg wrapper), packaged as a self-contained skill folder so it can be dropped into **Antigravity, Claude Code, GitHub Copilot, and OpenAI Codex**.
 
-## DEMO
-
 ![Demo of Video to Gif Skill](./Demo-Video-to-Gif-Skill.gif)
 
 ## Get started
@@ -52,6 +50,9 @@ cd video-to-gif/scripts
 dotnet build
 dotnet run -- <path-to-video-or-directory>
 ```
+
+##
+![Demo of Video to Gif Skill](./Demo-Video-to-Gif-Skill.gif)
 
 ## License
 
